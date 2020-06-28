@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ipcRenderer } from 'electron-renderer';
+//import * as electron from 'electron';
+//import * as fs from 'fs';
+//import { readdirSync } from 'file-stream';
+//const electron = require("electron");
+//import * as glob from 'glob';
 
 @Component({
   selector: 'app-root',
@@ -6,15 +12,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-
-  //constructor() {
-  //  //check if platform is electron
-  //  let isElectron: boolean = (window && window['process'] && window['process'].type);
-
-  //  if (isElectron) {
-  //    let fs: typeof Fs = window['require']('fs');
-  //    let app: Electron.App = window['require']('electron').remote;
-  //    console.log(fs, app, window['process']);
-  //  }
-  //}
+  
 }

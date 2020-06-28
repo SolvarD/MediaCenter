@@ -1,12 +1,13 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { ipcRenderer } from 'electron-renderer';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
+  selector: 'app-media-player',
+  templateUrl: './media-player.component.html',
 })
-export class HomeComponent implements OnInit {
-  series = [];
+export class MediaPlayerComponent implements OnInit {
+  @Input()
+  path: string;
 
   constructor(private ref: ChangeDetectorRef) { }
 
