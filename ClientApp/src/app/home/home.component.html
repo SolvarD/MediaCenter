@@ -1,4 +1,5 @@
 
 <ul>
-  <li *ngFor="let title of series;index as i">{{title}}</li>
+  <li *ngFor="let serie of series;index as i" (click)="selectVideo(serie)">{{serie.title}}</li>
 </ul>
+<app-media-player *ngIf="selectedVideo" [video]="selectedVideo" (videoStat)="videoUpdate($event)"></app-media-player>

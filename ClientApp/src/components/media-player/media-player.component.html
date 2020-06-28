@@ -1,4 +1,32 @@
+<video class="player" autoplay [src]="safePath"></video>
+<div class="command-container">
+  <div class="timeline-command">
 
-<ul>
-  <li *ngFor="let title of series;index as i">{{title}}</li>
-</ul>
+    <!--backward-->
+    <div>
+      <i (click)="backward()" class="fas fa-backward fa-2x"></i>
+    </div>
+    <!--play-->
+    <div *ngIf="statPause">
+      <i (click)="play()" class="fas fa-play-circle fa-2x"></i>
+    </div>
+    <!--pause-->
+    <div *ngIf="statPlay">
+      <i (click)="pause()" class="fas fa-pause fa-2x"></i>
+    </div>
+    <!--forward-->
+    <div>
+      <i (click)="forward()" class="fas fa-forward fa-2x"></i>
+    </div>
+
+    <div></div>
+  </div>
+  <div class="range-selector">
+    <div>
+      <input type="range" min="0" [max]="videoElement.duration" [value]="videoElement.currentTime" (click)="selectDuration($event)" class="form-control-range">{{videoElement.currentTime}}
+    </div>
+  </div>
+  <div class="screen-command">
+
+  </div>
+</div>

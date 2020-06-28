@@ -1,10 +1,10 @@
 //https://www.techiediaries.com/angular-electron/
+
 const { app, BrowserWindow, ipcMain } = require('electron')
 const url = require("url");
 const path = require("path");
 const fs = require('fs');
-let mainWindow
-
+let mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
@@ -42,9 +42,10 @@ app.on('activate', function () {
 ipcMain.on('list-serie', function () {
   let listSerie = [];
   fs.readdirSync('I:\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY').forEach(file => {
-    console.log(file);
-    listSerie.push(file);
+    listSerie.push({
+      title: file, path: 'I:\\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY\\' + file
+    });
   });
 
-  mainWindow.webContents.send('list-serie',listSerie);
+  mainWindow.webContents.send('list-serie', listSerie);
 })
