@@ -23,6 +23,7 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\app-routing.module.ts" />
     <None Remove="ClientApp\src\models\video.ts" />
+    <None Remove="ClientApp\src\services\params.service.ts" />
     <None Remove="ClientApp\src\services\serie.service.ts" />
   </ItemGroup>
 
@@ -33,6 +34,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app-routing.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\video.ts" />
+    <TypeScriptCompile Include="ClientApp\src\services\params.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\services\serie.service.ts" />
   </ItemGroup>
 

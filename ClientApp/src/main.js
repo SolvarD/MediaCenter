@@ -48,4 +48,10 @@ ipcMain.on('list-serie', function () {
   });
 
   mainWindow.webContents.send('list-serie', listSerie);
+});
+
+ipcMain.on('load-config', function () {
+  fs.readFile('./src/config/config-media-center.json', { encoding: 'utf-8'}, function (err, data) {
+    mainWindow.webContents.send('load-config', data);
+  })  
 })

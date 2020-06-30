@@ -7,19 +7,16 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MediaPlayerComponent } from '../components/media-player/media-player.component';
 import { SerieService } from '../services/serie.service';
+import { ParamsService } from '../services/params.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     MediaPlayerComponent
   ],
   imports: [
@@ -29,7 +26,7 @@ import { SerieService } from '../services/serie.service';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [SerieService],
+  providers: [SerieService, ParamsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
