@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MediaPlayerComponent } from '../components/media-player/media-player.component';
+import { SerieService } from '../services/serie.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { MediaPlayerComponent } from '../components/media-player/media-player.co
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [SerieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
