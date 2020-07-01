@@ -29,7 +29,6 @@ export class MediaPlayerComponent implements OnInit {
     this.safePath = this.sanitizer.bypassSecurityTrustUrl(this.video.path);
 
     this.videoElement.addEventListener('play', (x) => {
-      console.log('play', x);
       this.statPause = false;
       this.statPlay = true;
       this.ref.detectChanges();
@@ -67,9 +66,4 @@ export class MediaPlayerComponent implements OnInit {
   fullScreen() {
     this.videoElement.requestFullscreen();
   }
-
-  selectDuration(event) {
-    this.videoElement.currentTime = event.target.value;
-  }
-
 }

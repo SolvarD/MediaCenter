@@ -19,11 +19,16 @@
       <i (click)="forward()" class="fas fa-forward fa-2x"></i>
     </div>
 
+    <!--volume-->
     <div></div>
   </div>
   <div class="range-selector">
     <div>
-      <input type="range" min="0" [max]="videoElement.duration" [value]="videoElement.currentTime" (click)="selectDuration($event)" class="form-control-range">{{videoElement.currentTime}}
+      <input type="range"
+             min="0"
+             [max]="videoElement.duration"             
+             [(ngModel)]="videoElement.currentTime"
+             class="form-control-range">{{videoElement.currentTime}}
     </div>
   </div>
   <div class="screen-command">
