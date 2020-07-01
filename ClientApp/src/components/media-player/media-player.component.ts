@@ -23,6 +23,7 @@ export class MediaPlayerComponent implements OnInit {
   statPause: boolean = false;
   statPlay: boolean = true;
   safePath: SafeUrl;
+  title: string;
   constructor(private ref: ChangeDetectorRef, private sanitizer: DomSanitizer) {
 
   }
@@ -58,6 +59,7 @@ export class MediaPlayerComponent implements OnInit {
   }
 
   videoToVideoElement(video: Video) {
+    this.title = video.title;
     this.videoElement = document.getElementsByTagName('video')[0];
     this.videoElement.volume = video.volume;
     this.videoElement.currentTime = video.currentTime;
@@ -83,7 +85,19 @@ export class MediaPlayerComponent implements OnInit {
   fullScreen() {
     this.videoElement.requestFullscreen({ navigationUI: "hide" });
   }
+
   muteSound() {
     this.videoElement.muted = !this.videoElement.muted;
+  }
+  getTime(secs) {
+    var sec_num = parseInt(secs, 10)
+    var hours = Math.floor(sec_num / 3600)
+    var minutes = Math.floor(sec_num / 60) % 60
+    var seconds = sec_num % 60
+
+    return [hours, minutes, seconds]
+      .map(v => v < 10 ? "0" + v : v)
+      .filter((v, i) => v !== "00" || i > 0)
+      .join(":")
   }
 }

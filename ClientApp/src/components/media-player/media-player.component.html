@@ -2,7 +2,7 @@
 
 
   <div class="title-content vertical-align">
-    <label>{{video.title}}</label>
+    <label>{{title}}</label>
   </div>
 
   <video class="player" autoplay [src]="safePath"></video>
@@ -10,25 +10,25 @@
     <div class="timeline-command vertical-align">
 
       <!--backward-->
-      <div>
+      <div class="spacing-button">
         <i (click)="backward()" class="fas fa-backward fa-2x"></i>
       </div>
       <!--play-->
-      <div *ngIf="statPause">
+      <div *ngIf="statPause" class="spacing-button">
         <i (click)="play()" class="fas fa-play-circle fa-2x"></i>
       </div>
       <!--pause-->
-      <div *ngIf="statPlay">
+      <div *ngIf="statPlay" class="spacing-button">
         <i (click)="pause()" class="fas fa-pause fa-2x"></i>
       </div>
       <!--forward-->
-      <div>
+      <div class="spacing-button">
         <i (click)="forward()" class="fas fa-forward fa-2x"></i>
       </div>
 
       <!--volume-->
       <div class="vertical-align flex volume">
-        <div (click)="muteSound()">
+        <div class="spacing-button" (click)="muteSound()">
           <i *ngIf="videoElement.volume == 0 || videoElement.muted" class="fas fa-volume-mute fa-2x"></i>
           <i *ngIf="!videoElement.muted && videoElement.volume > 0 && videoElement.volume < 0.5" class="fas fa-volume-down fa-2x"></i>
           <i *ngIf="!videoElement.muted && videoElement.volume >= 0.5" class="fas fa-volume-up fa-2x"></i>
@@ -44,7 +44,7 @@
 
       </div>
     </div>
-    <div class="range-selector-container vertical-align">
+    <div class="range-selector-container vertical-align spacing-button">
       <div class="range-selector">
         <input type="range"
                min="0"
@@ -52,8 +52,8 @@
                [(ngModel)]="videoElement.currentTime"
                class="form-control-range">
       </div>
-      <div class="current-time">
-        {{videoElement.currentTime}}
+      <div class="current-time spacing-button">
+        {{getTime(videoElement.currentTime)}} / {{getTime(videoElement.duration)}}
       </div>
     </div>
     <div class="screen-command flex">
