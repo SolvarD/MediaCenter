@@ -4,6 +4,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Video } from '../../models/video';
 import { SerieService } from '../../services/serie.service';
 import { ParamsService } from '../../services/params.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { ParamsService } from '../../services/params.service';
 export class HomeComponent implements OnInit {
   series: Array<Video> = [];
   config;
-  selectedVideo: Video;
+  selectedVideo: Subject<Video> = new Subject<Video>();
   constructor(private ref: ChangeDetectorRef, private serieService: SerieService, private paramsService: ParamsService) { }
 
   async ngOnInit() {
@@ -22,8 +23,10 @@ export class HomeComponent implements OnInit {
     this.ref.detectChanges();
   }
 
-  selectVideo(video: Video) {
-    this.selectedVideo = video;
+  selectVideo(video: Video) {    
+    video.volume = 0.5;
+    video.currentTime = 0;
+    this.selectedVideo.next(video);
     this.ref.detectChanges();
   }
 

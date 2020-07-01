@@ -1,37 +1,66 @@
-<video class="player" autoplay [src]="safePath"></video>
-<div class="command-container">
-  <div class="timeline-command">
+<div>
 
-    <!--backward-->
-    <div>
-      <i (click)="backward()" class="fas fa-backward fa-2x"></i>
-    </div>
-    <!--play-->
-    <div *ngIf="statPause">
-      <i (click)="play()" class="fas fa-play-circle fa-2x"></i>
-    </div>
-    <!--pause-->
-    <div *ngIf="statPlay">
-      <i (click)="pause()" class="fas fa-pause fa-2x"></i>
-    </div>
-    <!--forward-->
-    <div>
-      <i (click)="forward()" class="fas fa-forward fa-2x"></i>
-    </div>
 
-    <!--volume-->
-    <div></div>
+  <div class="title-content vertical-align">
+    <label>{{video.title}}</label>
   </div>
-  <div class="range-selector">
-    <div>
-      <input type="range"
-             min="0"
-             [max]="videoElement.duration"             
-             [(ngModel)]="videoElement.currentTime"
-             class="form-control-range">{{videoElement.currentTime}}
-    </div>
-  </div>
-  <div class="screen-command">
 
+  <video class="player" autoplay [src]="safePath"></video>
+  <div class="command-container vertical-align">
+    <div class="timeline-command vertical-align">
+
+      <!--backward-->
+      <div>
+        <i (click)="backward()" class="fas fa-backward fa-2x"></i>
+      </div>
+      <!--play-->
+      <div *ngIf="statPause">
+        <i (click)="play()" class="fas fa-play-circle fa-2x"></i>
+      </div>
+      <!--pause-->
+      <div *ngIf="statPlay">
+        <i (click)="pause()" class="fas fa-pause fa-2x"></i>
+      </div>
+      <!--forward-->
+      <div>
+        <i (click)="forward()" class="fas fa-forward fa-2x"></i>
+      </div>
+
+      <!--volume-->
+      <div class="vertical-align flex volume">
+        <div (click)="muteSound()">
+          <i *ngIf="videoElement.volume == 0 || videoElement.muted" class="fas fa-volume-mute fa-2x"></i>
+          <i *ngIf="!videoElement.muted && videoElement.volume > 0 && videoElement.volume < 0.5" class="fas fa-volume-down fa-2x"></i>
+          <i *ngIf="!videoElement.muted && videoElement.volume >= 0.5" class="fas fa-volume-up fa-2x"></i>
+        </div>
+        <div>
+          <input type="range"
+                 min="0"
+                 [max]="1"
+                 step="0.01"
+                 [(ngModel)]="videoElement.volume"
+                 class="form-control-range">
+        </div>
+
+      </div>
+    </div>
+    <div class="range-selector-container vertical-align">
+      <div class="range-selector">
+        <input type="range"
+               min="0"
+               [max]="videoElement.duration"
+               [(ngModel)]="videoElement.currentTime"
+               class="form-control-range">
+      </div>
+      <div class="current-time">
+        {{videoElement.currentTime}}
+      </div>
+    </div>
+    <div class="screen-command flex">
+      <div>
+        <i  (click)="fullScreen()" class="fas fa-expand fa-2x"></i>
+        <!--<i *ngIf="" class="fas fa-compress fa-2x"></i>-->
+      </div>
+    </div>
   </div>
 </div>

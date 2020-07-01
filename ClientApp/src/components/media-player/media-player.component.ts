@@ -9,42 +9,59 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styleUrls: ['media-player.component.less']
 })
 export class MediaPlayerComponent implements OnInit {
+  private _incomingVideo: Video;
+  videoElement: HTMLVideoElement;
 
   @Input()
-  video: Video;
+  video: Subject<Video> = new Subject<Video>();
   @Output()
   videoStat: Subject<Video> = new Subject<Video>();
 
 
   currentVideo: Video;
-  videoElement: HTMLVideoElement;
+
   statPause: boolean = false;
   statPlay: boolean = true;
   safePath: SafeUrl;
-  constructor(private ref: ChangeDetectorRef, private sanitizer: DomSanitizer) { }
+  constructor(private ref: ChangeDetectorRef, private sanitizer: DomSanitizer) {
+
+  }
 
   ngOnInit() {
+    this.video.asObservable().subscribe((video) => {
+      this.videoToVideoElement(video);
+      this.safePath = this.sanitizer.bypassSecurityTrustUrl(video.path);
+
+      this.videoElement.addEventListener('play', (x) => {
+        this.statPause = false;
+        this.statPlay = true;
+        this.ref.detectChanges();
+      });
+
+      this.videoElement.addEventListener('pause', (x) => {
+        this.statPause = true;
+        this.statPlay = false;
+        this.ref.detectChanges();
+      });
+
+      this.videoElement.addEventListener('timeupdate', (x) => {
+        video.currentTime = this.videoElement.currentTime;
+        this.ref.detectChanges();
+        this.videoStat.next(video);
+      });
+      this.videoElement.addEventListener('volumechange', (x) => {
+        video.volume = this.videoElement.volume;
+        this.videoStat.next(video);
+      });
+    });
+
+  }
+
+  videoToVideoElement(video: Video) {
     this.videoElement = document.getElementsByTagName('video')[0];
-
-    this.safePath = this.sanitizer.bypassSecurityTrustUrl(this.video.path);
-
-    this.videoElement.addEventListener('play', (x) => {
-      this.statPause = false;
-      this.statPlay = true;
-      this.ref.detectChanges();
-    });
-
-    this.videoElement.addEventListener('pause', (x) => {
-      this.statPause = true;
-      this.statPlay = false;
-      this.ref.detectChanges();
-    });
-
-    this.videoElement.addEventListener('timeupdate', (x) => {
-      this.video.currentTime = this.videoElement.currentTime;
-      this.ref.detectChanges();
-      this.videoStat.next(this.video);
-    });
+    this.videoElement.volume = video.volume;
+    this.videoElement.currentTime = video.currentTime;
+    this.ref.detectChanges();
   }
 
   forward(seconds: number = 10) {
@@ -64,6 +81,9 @@ export class MediaPlayerComponent implements OnInit {
   }
 
   fullScreen() {
-    this.videoElement.requestFullscreen();
+    this.videoElement.requestFullscreen({ navigationUI: "hide" });
+  }
+  muteSound() {
+    this.videoElement.muted = !this.videoElement.muted;
   }
 }

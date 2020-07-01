@@ -5,18 +5,55 @@
   position: relative;
   color: white;
 }
+
+
+
 .timeline-command {
   flex: 1;
   display: flex;
 }
 
-.range-selector{
-    flex:2;
+.range-selector-container {
+  flex: 2;
+  display: flex;
 }
-.screen-command{
-    flex:1;
+
+.range-selector {
+  flex: 1;
 }
+
+.current-time {
+  width: 85px;
+}
+
+.screen-command {
+  flex: 1;
+}
+
 .player {
   z-index: -1;
-  width:100%
+  width: 100%
+}
+.volume {
+  width: 100px;
+}
+
+.title-content {
+  visibility:hidden;
+  display: flex;
+  margin-top: 5px;
+  margin-left: 10px;
+  z-index: 100;
+  position: absolute;
+  color: white;
+}
+
+.title-content :hover {
+  visibility: visible;
+  display: flex;
+  margin-top: 5px;
+  margin-left: 10px;
+  z-index: 100;
+  position: absolute;
+  color: white;
 }

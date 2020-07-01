@@ -14,3 +14,12 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.vertical-align {
+  align-content: center;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
