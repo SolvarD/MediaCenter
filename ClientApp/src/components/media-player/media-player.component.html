@@ -6,7 +6,7 @@
   </div>
 
   <video class="player" autoplay [src]="safePath"></video>
-  <div class="command-container vertical-align">
+  <div *ngIf="videoElement" class="command-container vertical-align">
     <div class="timeline-command vertical-align">
 
       <!--backward-->

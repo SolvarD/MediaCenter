@@ -40,18 +40,28 @@ app.on('activate', function () {
 })
 
 ipcMain.on('list-serie', function () {
-  let listSerie = [];
-  fs.readdirSync('I:\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY').forEach(file => {
-    listSerie.push({
-      title: file, path: 'I:\\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY\\' + file
-    });
-  });
-
+  let listSerie = getFiles(0);
   mainWindow.webContents.send('list-serie', listSerie);
 });
 
+function getFiles(level) {
+  let listSerie = [];
+
+  fs.readdirSync('I:\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY').forEach(file => {
+    let path = 'I:\\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY\\' + file;
+
+    listSerie.push({
+      title: file,
+      path: path,
+      isDirectory: fs.lstatSync(path).isDirectory()
+    });
+  });
+
+  return listSerie;
+};
+
 ipcMain.on('load-config', function () {
-  fs.readFile('./src/config/config-media-center.json', { encoding: 'utf-8'}, function (err, data) {
+  fs.readFile('./src/config/config-media-center.json', { encoding: 'utf-8' }, function (err, data) {
     mainWindow.webContents.send('load-config', data);
-  })  
+  })
 })

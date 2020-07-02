@@ -1,5 +1,12 @@
+<div class="flex">
+  <div>
+    <ul>
+      <li *ngFor="let serie of series;index as i" (click)="!serie.isDirectory && selectVideo(serie)">{{serie.title}} ({{serie.isDirectory}})</li>
+    </ul>
+  </div>
+  <div class="flex-1">
+    <app-media-player *ngIf="selectedVideo" [video]="selectedVideo" (videoStat)="videoUpdate($event)"></app-media-player>
+  </div>
+</div>
 
-<ul>
-  <li *ngFor="let serie of series;index as i" (click)="selectVideo(serie)">{{serie.title}}</li>
-</ul>
-<app-media-player *ngIf="selectedVideo" [video]="selectedVideo" (videoStat)="videoUpdate($event)"></app-media-player>
+
