@@ -39,3 +39,10 @@ code {
 .flex-4 {
   flex: 1;
 }
+.pointer{
+    cursor:pointer;
+}
+.app-container{
+    margin-left: 10px;
+    margin-right: 10px;
+}

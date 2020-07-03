@@ -7,11 +7,23 @@ import { Video } from "../models/video";
 export class SerieService {
   constructor(private http: HttpClient) { }
 
-  async getAll(): Promise<Array<Video>> {
-    ipcRenderer.send('list-serie');
+  async getNode(path): Promise<Array<Video>> {
+    ipcRenderer.send('list-serie', path);
 
     let promise = new Promise<Array<Video>>((resolve) => {
       ipcRenderer.on('list-serie', (event, list: Array<Video>) => {
+        resolve(list);
+      });
+    });
+
+    return promise;    
+  }
+
+  async getTree(path): Promise<Array<Video>> {
+    ipcRenderer.send('list-serie-group', path);
+
+    let promise = new Promise<Array<Video>>((resolve) => {
+      ipcRenderer.on('list-serie-group', (event, list: Array<Video>) => {
         resolve(list);
       });
     });

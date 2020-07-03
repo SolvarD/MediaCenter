@@ -11,13 +11,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { MediaPlayerComponent } from '../components/media-player/media-player.component';
 import { SerieService } from '../services/serie.service';
 import { ParamsService } from '../services/params.service';
+import { TreeComponent } from '../components/tree/tree.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    MediaPlayerComponent
+    MediaPlayerComponent,
+    TreeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

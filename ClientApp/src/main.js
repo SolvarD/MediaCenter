@@ -39,22 +39,65 @@ app.on('activate', function () {
   if (mainWindow === null) createWindow()
 })
 
-ipcMain.on('list-serie', function () {
-  let listSerie = getFiles(0);
+ipcMain.on('list-serie', function (event, path) {
+  let listSerie = getNode(0, path);
   mainWindow.webContents.send('list-serie', listSerie);
 });
 
-function getFiles(level) {
+function getNode(level = 0, path) {
   let listSerie = [];
 
-  fs.readdirSync('I:\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY').forEach(file => {
-    let path = 'I:\\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY\\' + file;
+  fs.readdirSync(path).forEach(file => {
+    let pathFile = path + '\\' + file;
+    let isDirectory = fs.lstatSync(pathFile).isDirectory();
 
+    //if (isDirectory) {
+    //  listSerie = listSerie.concat(getFiles(level + 1, pathFile));
+    //} else {
     listSerie.push({
       title: file,
-      path: path,
-      isDirectory: fs.lstatSync(path).isDirectory()
+      path: pathFile,
+      isDirectory: isDirectory,
+      level: isDirectory? (level + 1): level,
+      children: []
     });
+    //}
+
+  });
+
+  return listSerie;
+};
+
+ipcMain.on('list-serie-group', function (event, path) {
+  console.log(path);
+  let listSerie = getFilesTree(0, path);
+  mainWindow.webContents.send('list-serie-group', listSerie);
+});
+
+function getFilesTree(level = 0, path) {
+  let listSerie = [];
+
+  fs.readdirSync(path).forEach(file => {
+    let pathFile = path + '\\' + file;
+    let isDirectory = fs.lstatSync(pathFile).isDirectory();
+
+    if (isDirectory) {
+      listSerie.push({
+        title: file,
+        path: pathFile,
+        isDirectory: isDirectory,
+        level: level,
+        children: getFiles(level + 1, pathFile)
+      });
+    } else {
+      listSerie.push({
+        title: file,
+        path: pathFile,
+        isDirectory: isDirectory,
+        level: level,
+        children: []
+      });
+    }
   });
 
   return listSerie;
