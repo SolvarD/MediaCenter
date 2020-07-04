@@ -19,6 +19,7 @@ export class TreeComponent implements OnInit {
   selectedVideo: Subject<Video> = new Subject<Video>();
   search: Subject<any> = new Subject<any>();
   safePath: SafeUrl;
+  @Input()
   level: number = 0;
   textFilter: string = '';
   constructor(private ref: ChangeDetectorRef, private sanitizer: DomSanitizer, private serieService: SerieService) {
@@ -26,11 +27,11 @@ export class TreeComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.level = this.videos[0] ? this.videos[0].level : 0;
     this.search.asObservable().subscribe((event) => {
       if (event.target.value.length > 2) {
         this.textFilter = event.target.value;
+      } else {
+        this.textFilter = '';
       }
     });
   }

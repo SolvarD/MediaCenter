@@ -7,8 +7,8 @@
   <ul>
     <li *ngFor="let serie of filterSerie();index as i" class="pointer" (click)="(!serie.isDirectory && selectVideo(serie)) || (serie.isDirectory && getNode(serie))">
       {{serie.title}} ({{serie.isDirectory}})
-      <div *ngIf="serie.isDirectory && serie.children.length">
-        <app-tree [videos]="serie.children" (selectedVideo)="selectVideo($event)"></app-tree>
+      <div *ngIf="serie.isDirectory">
+        <app-tree [videos]="serie.children" [level]="(level + 1)"  (selectedVideo)="serie.isDirectory && selectVideo($event)"></app-tree>
       </div>
     </li>
   </ul>

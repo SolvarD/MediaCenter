@@ -49,7 +49,15 @@ function getNode(level = 0, path) {
 
   fs.readdirSync(path).forEach(file => {
     let pathFile = path + '\\' + file;
-    let isDirectory = fs.lstatSync(pathFile).isDirectory();
+
+    let isDirectory = false;
+
+    try {
+      isDirectory = fs.lstatSync(pathFile).isDirectory();
+    } catch {
+      isDirectory = false;
+    }
+
 
     //if (isDirectory) {
     //  listSerie = listSerie.concat(getFiles(level + 1, pathFile));

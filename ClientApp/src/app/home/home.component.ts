@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     
     this.config = await this.paramsService.getConfig();
 
-    this.series = await this.serieService.getNode('I:\\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY');
+    this.series = await this.serieService.getNode('\\\\Ultimate-omega\\k');//I:\\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY
 
     console.log(this.config);
     this.ref.detectChanges();

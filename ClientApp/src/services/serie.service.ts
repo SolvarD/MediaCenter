@@ -11,7 +11,7 @@ export class SerieService {
     ipcRenderer.send('list-serie', path);
 
     let promise = new Promise<Array<Video>>((resolve) => {
-      ipcRenderer.on('list-serie', (event, list: Array<Video>) => {
+      ipcRenderer.once('list-serie', (event, list: Array<Video>) => {
         resolve(list);
       });
     });
@@ -23,7 +23,7 @@ export class SerieService {
     ipcRenderer.send('list-serie-group', path);
 
     let promise = new Promise<Array<Video>>((resolve) => {
-      ipcRenderer.on('list-serie-group', (event, list: Array<Video>) => {
+      ipcRenderer.once('list-serie-group', (event, list: Array<Video>) => {
         resolve(list);
       });
     });
