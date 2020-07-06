@@ -12,6 +12,7 @@ import { MediaPlayerComponent } from '../components/media-player/media-player.co
 import { SerieService } from '../services/serie.service';
 import { ParamsService } from '../services/params.service';
 import { TreeComponent } from '../components/tree/tree.component';
+import { DisplayFolderComponent } from '../components/display-folder/display-folder.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TreeComponent } from '../components/tree/tree.component';
     NavMenuComponent,
     HomeComponent,
     MediaPlayerComponent,
-    TreeComponent
+    TreeComponent,
+    DisplayFolderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

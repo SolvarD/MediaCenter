@@ -1,0 +1,20 @@
+<div>
+  <div>
+    <span class="pointer" *ngFor="let item of history;index as i" (click)="goTo({ path: item.path, index: i })"> {{item.title}}\</span>
+  </div>
+  <div>
+    <input type="text" placeholder="search" (keyup)="search.next($event)" />
+  </div>
+  <div class="flex folder-container">
+    <div *ngFor="let serie of filterSerie();index as i" class="pointer item-folder" (click)="(!serie.isDirectory && selectVideo(serie)) || (serie.isDirectory && goTo({ path: serie.path }))">
+
+      <div>
+        <i *ngIf="serie.isDirectory" class="fas fa-folder fa-2x"></i>
+        <i *ngIf="!serie.isDirectory" class="fas fa-photo-video fa-2x"></i>
+      </div>
+      <div>
+        {{serie.title}}
+      </div>
+    </div>
+  </div>
+</div>

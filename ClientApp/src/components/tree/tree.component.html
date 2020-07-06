@@ -1,15 +1,21 @@
 <div>
-  <ul *ngIf="level == 0">
-    <li>
-      <input type="text" placeholder="search" (keyup)="search.next($event)" />
-    </li>
-  </ul>
-  <ul>
-    <li *ngFor="let serie of filterSerie();index as i" class="pointer" (click)="(!serie.isDirectory && selectVideo(serie)) || (serie.isDirectory && getNode(serie))">
-      {{serie.title}} ({{serie.isDirectory}})
-      <div *ngIf="serie.isDirectory">
-        <app-tree [videos]="serie.children" [level]="(level + 1)"  (selectedVideo)="serie.isDirectory && selectVideo($event)"></app-tree>
-      </div>
-    </li>
-  </ul>
+
+  <div>
+    <ul class="search-bar" *ngIf="level == 0">
+      <li>
+        <input type="text" placeholder="search" (keyup)="search.next($event)" />
+      </li>
+    </ul>
+  </div>
+  <div>
+    <ul class="serie-list">
+      <li *ngFor="let serie of filterSerie();index as i" class="pointer" (click)="(!serie.isDirectory && selectVideo(serie)) || (serie.isDirectory && getNode(serie))">
+        {{serie.title}} ({{serie.isDirectory}})
+        <div *ngIf="serie.isDirectory">
+          <app-tree [videos]="serie.children" [level]="(level + 1)" (selectedVideo)="selectVideo($event)"></app-tree>
+        </div>
+      </li>
+    </ul>
+  </div>
+
 </div>

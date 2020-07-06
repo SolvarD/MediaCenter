@@ -15,13 +15,14 @@ export class HomeComponent implements OnInit {
   series: Array<Video> = [];
   config: MediaCenterConfig;
   selectedVideo: Subject<Video> = new Subject<Video>();
+  path: string = '\\\\Ultimate-omega\\k'
   constructor(private ref: ChangeDetectorRef, private serieService: SerieService, private paramsService: ParamsService) { }
 
   async ngOnInit() {
     
     this.config = await this.paramsService.getConfig();
 
-    this.series = await this.serieService.getNode('\\\\Ultimate-omega\\k');//I:\\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY
+    //this.series = await this.serieService.getNode(this.path);//I:\\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY
 
     console.log(this.config);
     this.ref.detectChanges();
