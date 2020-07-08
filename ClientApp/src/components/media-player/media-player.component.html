@@ -1,8 +1,7 @@
-<div class="video-container">
-
-
+<div class="video-container" [ngClass]="{'video-container-reduce': reduce, 'video-container': !reduce}">
   <div class="title-content vertical-align">
-    <label>{{title}}</label>
+    <div class="item-title flex-1">{{title}}</div>
+    <div class="close pointer"><i (click)="close()" class="fas fa-times fa-2x"></i></div>
   </div>
 
   <video class="player" autoplay [src]="safePath"></video>
@@ -11,24 +10,24 @@
 
       <!--backward-->
       <div class="spacing-button">
-        <i (click)="backward()" class="fas fa-backward fa-2x"></i>
+        <i (click)="backward()" class="pointer fas fa-backward fa-2x"></i>
       </div>
       <!--play-->
       <div *ngIf="statPause" class="spacing-button">
-        <i (click)="play()" class="fas fa-play-circle fa-2x"></i>
+        <i (click)="play()" class="pointer fas fa-play-circle fa-2x"></i>
       </div>
       <!--pause-->
       <div *ngIf="statPlay" class="spacing-button">
-        <i (click)="pause()" class="fas fa-pause fa-2x"></i>
+        <i (click)="pause()" class="pointer fas fa-pause fa-2x"></i>
       </div>
       <!--forward-->
       <div class="spacing-button">
-        <i (click)="forward()" class="fas fa-forward fa-2x"></i>
+        <i (click)="forward()" class="pointer fas fa-forward fa-2x"></i>
       </div>
 
       <!--volume-->
       <div class="vertical-align flex volume">
-        <div class="spacing-button" (click)="muteSound()">
+        <div class="pointer spacing-button" (click)="muteSound()">
           <i *ngIf="videoElement.volume == 0 || videoElement.muted" class="fas fa-volume-mute fa-2x"></i>
           <i *ngIf="!videoElement.muted && videoElement.volume > 0 && videoElement.volume < 0.5" class="fas fa-volume-down fa-2x"></i>
           <i *ngIf="!videoElement.muted && videoElement.volume >= 0.5" class="fas fa-volume-up fa-2x"></i>
@@ -39,7 +38,7 @@
                  [max]="1"
                  step="0.01"
                  [(ngModel)]="videoElement.volume"
-                 class="form-control-range">
+                 class="pointer form-control-range">
         </div>
 
       </div>
@@ -50,7 +49,7 @@
                min="0"
                [max]="videoElement.duration"
                [(ngModel)]="videoElement.currentTime"
-               class="form-control-range">
+               class="pointer form-control-range">
       </div>
       <div class="current-time spacing-button">
         {{getTime(videoElement.currentTime)}} / {{getTime(videoElement.duration)}}
@@ -58,8 +57,11 @@
     </div>
     <div class="screen-command flex">
       <div>
-        <i  (click)="fullScreen()" class="fas fa-expand fa-2x"></i>
+        <i  (click)="fullScreen()" class="pointer fas fa-expand fa-2x"></i>
         <!--<i *ngIf="" class="fas fa-compress fa-2x"></i>-->
+      </div>
+      <div>
+        <i (click)="reduceVideo()" class="pointer fas fa-expand fa-2x"></i>
       </div>
     </div>
   </div>

@@ -22,6 +22,7 @@ export class DisplayFolderComponent implements OnInit {
   level: number = 0;
   textFilter: string = '';
   history: Array<HistoryExplorer> = [];
+  currentTitle: string;
   constructor(private ref: ChangeDetectorRef, private sanitizer: DomSanitizer, private serieService: SerieService) {
 
   }
@@ -30,7 +31,7 @@ export class DisplayFolderComponent implements OnInit {
     this.videos = await this.serieService.getNode(this.path);
     this.addToHistory({ path: this.path, index: 0, title: null });
     this.search.asObservable().subscribe((event) => {
-      if (event.target.value.length > 2) {
+      if (event.target.value.length >= 2) {
         this.textFilter = event.target.value;
       } else {
         this.textFilter = '';
@@ -50,7 +51,8 @@ export class DisplayFolderComponent implements OnInit {
       .join(":")
   }
 
-  selectVideo(video) {
+  selectVideo(video: Video) {
+    this.currentTitle = video.title;
     this.selectedVideo.next(video);
   }
 
@@ -59,14 +61,10 @@ export class DisplayFolderComponent implements OnInit {
   }
   async getNode(serie: Video) {
     this.videos = await this.serieService.getNode(serie.path);
-    //this.addToHistory({ index: (this.history.length -1), path: serie.path, title: serie.title });
-    console.log(this.history);
     this.ref.detectChanges();
   }
   async goTo(history: HistoryExplorer) {
-
     this.addToHistory(history);
-    console.log(this.history);
     this.ref.detectChanges();
   }
 
@@ -87,7 +85,6 @@ export class DisplayFolderComponent implements OnInit {
     let video = new Video();
     video.path = history.path;
     this.getNode(video);
-
 
     this.history.push(addHistory);
   }

@@ -1,13 +1,6 @@
 <div class="flex">
-  <div>
-    <app-display-folder [path]="path" (selectedVideo)="selectVideo($event)"></app-display-folder>
-  </div>
-  <!--<div>
-    <app-tree [videos]="series" (selectedVideo)="selectVideo($event)"></app-tree>
-  </div>-->
-  <div class="flex-1">
-    <app-media-player *ngIf="selectedVideo" [video]="selectedVideo" (videoStat)="videoUpdate($event)"></app-media-player>
-  </div>
+  <app-display-folder [hidden]="currentVideo" [path]="path" (selectedVideo)="selectVideo($event)"></app-display-folder>
+  <app-media-player [hidden]="!currentVideo" [video]="selectedVideo" (videoStat)="videoUpdate($event)"></app-media-player>
 </div>
 
 

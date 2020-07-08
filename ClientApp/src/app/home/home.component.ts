@@ -15,27 +15,46 @@ export class HomeComponent implements OnInit {
   series: Array<Video> = [];
   config: MediaCenterConfig;
   selectedVideo: Subject<Video> = new Subject<Video>();
+  currentVideo: Video;
   path: string = '\\\\Ultimate-omega\\k'
   constructor(private ref: ChangeDetectorRef, private serieService: SerieService, private paramsService: ParamsService) { }
 
   async ngOnInit() {
-    
-    this.config = await this.paramsService.getConfig();
 
-    //this.series = await this.serieService.getNode(this.path);//I:\\Dark.Matter.S01.COMPLETE.FASTSUB.VOSTFR.720P.HDTV.X264-RUDY
+    this.config = await this.paramsService.getConfig();
 
     console.log(this.config);
     this.ref.detectChanges();
   }
 
   selectVideo(video: Video) {
-    video.volume = 0.5;
-    video.currentTime = 0;
+    let statusVideo = this.config[video.title];
+    if (statusVideo) {
+      video.volume = this.config.volume;
+      video.currentTime = this.config[video.title].currentTime;
+    } else {
+      video.volume = 0.5;
+      video.currentTime = 0;
+    }
+
+    this.currentVideo = video;
     this.selectedVideo.next(video);
     this.ref.detectChanges();
   }
 
-  videoUpdate(video: Video) {
-    //console.log(video);
+  async videoUpdate(video: Video) {
+    if (!video) {
+      this.currentVideo = null;
+      return;
+    }
+    console.log(video);
+    if (!this.config[video.title]) {
+      this.config[video.title] = {};
+    }
+    this.config[video.title].currentTime = video.currentTime;
+    this.config[video.title].duration = video.duration;
+    this.config.volume = video.volume;
+    this.ref.detectChanges();
+    this.paramsService.updateConfig(this.config);
   }
 }

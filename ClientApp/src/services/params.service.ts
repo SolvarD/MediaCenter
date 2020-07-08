@@ -11,19 +11,19 @@ export class ParamsService {
     ipcRenderer.send('load-config');
 
     let promise = new Promise<MediaCenterConfig>((resolve) => {
-      ipcRenderer.on('load-config', (event, config) => {
-        resolve(config);
+      ipcRenderer.once('load-config', (event, config) => {
+        resolve(JSON.parse(config));
       });
     });
 
     return promise;    
   }
 
-  async updateConfig(): Promise<MediaCenterConfig> {
-    ipcRenderer.send('load-config');
+  async updateConfig(config: any): Promise<MediaCenterConfig> {
+    ipcRenderer.send('update-config',config);
 
     let promise = new Promise<MediaCenterConfig>((resolve) => {
-      ipcRenderer.on('load-config', (event, config) => {
+      ipcRenderer.once('update-config', (event, config) => {
         resolve(config);
       });
     });

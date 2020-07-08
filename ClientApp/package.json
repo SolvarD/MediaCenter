@@ -10,9 +10,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start:electron": "ng build --base-href ./ && electron ."
+    "start:electron": "ng build --base-href ./ && electron .",
+    "package:win": "electron-packager dist MediaCenter --ignore=src --ignore=node_modules --ignore=e2e --ignore=.*\\.conf\\.js --ignore=\"(angular-cli|tsconfig)\\.json\" --ignore=webpack.*\\.js --out=packages --platform=win32 --arch=all --overwrite "
   },
-  "private": true,
+  "private": true,  
   "dependencies": {
     "@angular/animations": "8.2.12",
     "@angular/common": "8.2.12",
@@ -47,6 +48,8 @@
     "@types/node": "^12.11.7",
     "codelyzer": "^5.2.0",
     "electron": "^9.0.5",
+    "electron-builder": "^22.7.0",
+    "electron-packager": "^15.0.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.4.1",

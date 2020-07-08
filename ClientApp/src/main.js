@@ -66,7 +66,7 @@ function getNode(level = 0, path) {
       title: file,
       path: pathFile,
       isDirectory: isDirectory,
-      level: isDirectory? (level + 1): level,
+      level: isDirectory ? (level + 1) : level,
       children: []
     });
     //}
@@ -77,7 +77,6 @@ function getNode(level = 0, path) {
 };
 
 ipcMain.on('list-serie-group', function (event, path) {
-  console.log(path);
   let listSerie = getFilesTree(0, path);
   mainWindow.webContents.send('list-serie-group', listSerie);
 });
@@ -114,5 +113,13 @@ function getFilesTree(level = 0, path) {
 ipcMain.on('load-config', function () {
   fs.readFile('./src/config/config-media-center.json', { encoding: 'utf-8' }, function (err, data) {
     mainWindow.webContents.send('load-config', data);
+  })
+})
+
+ipcMain.on('update-config', function (event, config) {
+  let conf = {};
+  fs.readFile('./src/config/config-media-center.json', { encoding: 'utf-8' }, function (err, data) {
+    conf = Object.assign(JSON.parse(data), config)
+    fs.writeFile('./src/config/config-media-center.json', JSON.stringify(conf), () => { });
   })
 })

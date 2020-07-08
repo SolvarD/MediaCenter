@@ -32,7 +32,8 @@
 
 .player {
   z-index: -1;
-  width: 100%
+  width: 100%;
+  height: 100%;
 }
 
 .volume {
@@ -43,29 +44,41 @@
 }
 
 .title-content {
-  /*visibility:visible;*/
   display: flex;
-  margin-top: 5px;
-  margin-left: 10px;
+  /*margin-top: 5px;*/
+  /*margin-left: 5px;*/
   z-index: 100;
   position: absolute;
   color: white;
+  display: flex;
+  width: 100%;
 }
 
 .spacing-button {
   margin-left: 5px;
   margin-right: 5px;
 }
-/*.title-content :hover {
-  visibility: visible;
-  display: flex;
-  margin-top: 5px;
-  margin-left: 10px;
-  z-index: 100;
-  position: absolute;
-  color: white;
-}*/
 
-.video-container{
-    /*position:fixed;*/
+.video-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: black;
+  overflow: hidden;
+}
+
+.video-container-reduce {
+  width: 510px;
+  height: 290px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  overflow: hidden;
+}
+.close {
+  margin-right: 5px;
+  color: white;
 }
