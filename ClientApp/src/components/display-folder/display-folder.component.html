@@ -4,13 +4,13 @@
       <input type="text" placeholder="search" (keyup)="search.next($event)" />
     </div>
     <div>
-      <span class="link" *ngFor="let item of history;index as i" (click)="goTo({ path: item.path, index: i })"> {{item.title}} \</span>
+      <span class="link" *ngFor="let item of history;index as i" (click)="goTo({ paths: item.paths, index: i, title: item.title })"> {{item.title}} \</span>
     </div>
   </div>
   
  
   <div class="flex folder-container">
-    <div *ngFor="let serie of filterSerie();index as i" class="pointer item-folder" [ngClass]="{'video-selected': currentTitle == serie.title}" (click)="(!serie.isDirectory && selectVideo(serie)) || (serie.isDirectory && goTo({ path: serie.path }))">
+    <div *ngFor="let serie of filterSerie();index as i" class="pointer item-folder" [ngClass]="{'video-selected': currentTitle == serie.title}" (click)="(!serie.isDirectory && selectVideo(serie)) || (serie.isDirectory && goTo({ paths: [serie.path], title: serie.title }))">
 
       <div style="text-align:center;">
         <i *ngIf="serie.isDirectory" class="fas fa-folder fa-6x"></i>

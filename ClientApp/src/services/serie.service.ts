@@ -7,7 +7,7 @@ import { Video } from "../models/video";
 export class SerieService {
   constructor(private http: HttpClient) { }
 
-  async getNode(path): Promise<Array<Video>> {
+  async getNode(path: string): Promise<Array<Video>> {
     ipcRenderer.send('list-serie', path);
 
     let promise = new Promise<Array<Video>>((resolve) => {
@@ -19,7 +19,7 @@ export class SerieService {
     return promise;    
   }
 
-  async getTree(path): Promise<Array<Video>> {
+  async getTree(path: string): Promise<Array<Video>> {
     ipcRenderer.send('list-serie-group', path);
 
     let promise = new Promise<Array<Video>>((resolve) => {

@@ -1,5 +1,5 @@
 export class HistoryExplorer {  
-  path: string = '';
+  paths: string[] = [];
   title: string = '';
   index: number = 0;
 }
