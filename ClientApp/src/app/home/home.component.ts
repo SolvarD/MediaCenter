@@ -17,13 +17,14 @@ export class HomeComponent implements OnInit {
   config: MediaCenterConfig;
   selectedVideo: Subject<Video> = new Subject<Video>();
   currentVideo: Video;
-  path: string = '\\\\Ultimate-omega\\k'
+  path: string = ''
   isReduce: boolean = false;
   constructor(private ref: ChangeDetectorRef, private serieService: SerieService, private paramsService: ParamsService) { }
 
   async ngOnInit() {
 
     this.config = await this.paramsService.getConfig();
+    this.path = this.config.videoLocation[0];
     ParamsService.configObv.subscribe((conf) => {
       this.config = conf;
       this.ref.detectChanges();
