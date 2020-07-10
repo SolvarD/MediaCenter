@@ -51,3 +51,8 @@ code {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.link{
+    text-decoration: underline;
+    cursor: pointer;
+    color: blue;
+}

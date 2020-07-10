@@ -6,6 +6,7 @@ import { SerieService } from '../../services/serie.service';
 import { ParamsService } from '../../services/params.service';
 import { Subject } from 'rxjs';
 import { MediaCenterConfig } from '../../models/media-center-config';
+import { VideoStatus } from '../../models/video-status';
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,16 @@ export class HomeComponent implements OnInit {
   selectedVideo: Subject<Video> = new Subject<Video>();
   currentVideo: Video;
   path: string = '\\\\Ultimate-omega\\k'
+  isReduce: boolean = false;
   constructor(private ref: ChangeDetectorRef, private serieService: SerieService, private paramsService: ParamsService) { }
 
   async ngOnInit() {
 
     this.config = await this.paramsService.getConfig();
-
+    ParamsService.configObv.subscribe((conf) => {
+      this.config = conf;
+      this.ref.detectChanges();
+    })
     console.log(this.config);
     this.ref.detectChanges();
   }
@@ -38,8 +43,9 @@ export class HomeComponent implements OnInit {
     }
 
     this.currentVideo = video;
-    this.selectedVideo.next(video);
     this.ref.detectChanges();
+
+    this.selectedVideo.next(video);
   }
 
   async videoUpdate(video: Video) {
@@ -47,13 +53,13 @@ export class HomeComponent implements OnInit {
       this.currentVideo = null;
       return;
     }
-    console.log(video);
     if (!this.config[video.title]) {
-      this.config[video.title] = {};
+      this.config[video.title] = new VideoStatus();
     }
     this.config[video.title].currentTime = video.currentTime;
     this.config[video.title].duration = video.duration;
     this.config.volume = video.volume;
+    this.isReduce = video.isReduce;
     this.ref.detectChanges();
     this.paramsService.updateConfig(this.config);
   }

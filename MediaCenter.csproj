@@ -24,6 +24,7 @@
     <None Remove="ClientApp\src\app\app-routing.module.ts" />
     <None Remove="ClientApp\src\models\history.ts" />
     <None Remove="ClientApp\src\models\media-center-config.ts" />
+    <None Remove="ClientApp\src\models\video-status.ts" />
     <None Remove="ClientApp\src\models\video.ts" />
     <None Remove="ClientApp\src\services\params.service.ts" />
     <None Remove="ClientApp\src\services\serie.service.ts" />
@@ -37,6 +38,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\app-routing.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\media-center-config.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\history.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\models\video-status.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\models\video.ts" />

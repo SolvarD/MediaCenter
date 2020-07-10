@@ -4,6 +4,8 @@ import { Video } from '../../models/video';
 import { Subject } from 'rxjs';
 import { SerieService } from '../../services/serie.service';
 import { HistoryExplorer } from '../../models/history';
+import { ParamsService } from '../../services/params.service';
+import { MediaCenterConfig } from '../../models/media-center-config';
 
 @Component({
   selector: 'app-display-folder',
@@ -23,11 +25,19 @@ export class DisplayFolderComponent implements OnInit {
   textFilter: string = '';
   history: Array<HistoryExplorer> = [];
   currentTitle: string;
-  constructor(private ref: ChangeDetectorRef, private sanitizer: DomSanitizer, private serieService: SerieService) {
+  config: MediaCenterConfig;
+  constructor(private ref: ChangeDetectorRef, private sanitizer: DomSanitizer, private serieService: SerieService, private paramsService: ParamsService) {
 
   }
 
   async ngOnInit() {
+    this.config = await this.paramsService.getConfig();
+
+    ParamsService.configObv.subscribe((conf) => {
+      this.config = conf;
+      this.ref.detectChanges();
+    })
+
     this.videos = await this.serieService.getNode(this.path);
     this.addToHistory({ path: this.path, index: 0, title: null });
     this.search.asObservable().subscribe((event) => {
@@ -79,7 +89,7 @@ export class DisplayFolderComponent implements OnInit {
     if (!history.index && history.index != 0) {
       addHistory.index = this.history.length;
     }
-    if (history.index == 0 || history.index){
+    if (history.index == 0 || history.index) {
       this.history.splice(history.index);
     }
     let video = new Video();
@@ -87,5 +97,11 @@ export class DisplayFolderComponent implements OnInit {
     this.getNode(video);
 
     this.history.push(addHistory);
+  }
+
+  getPartSaw(video: Video) {
+    let videoParams = this.config[video.title];
+    if (!videoParams || !videoParams.currentTime) { return '0%'; }
+    return (Math.floor((videoParams.currentTime / videoParams.duration) * 100)) + '%'
   }
 }

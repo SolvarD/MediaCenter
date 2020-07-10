@@ -7,6 +7,6 @@ export class Video {
   isDirectory: boolean;
   level: number = 0;
   children: Video[] = [];
-  selected: boolean = false;
-  reduce: boolean = false;
+  isSelected: boolean = false;
+  isReduce: boolean = false;
 }

@@ -29,14 +29,19 @@ export class MediaPlayerComponent implements OnInit {
 
   ngOnInit() {
     this.video.asObservable().subscribe((video) => {
+
+      this.resetVideoElement();
       this.reduce = false;
       this.videoToVideoElement(video);
       this.safePath = this.sanitizer.bypassSecurityTrustUrl(video.path);
 
       this.videoElement.addEventListener('play', this.eventPlay);
       this.videoElement.addEventListener('pause', this.eventPause);
-      this.videoElement.addEventListener('timeupdate', this.eventTimeUpdate);
-      this.videoElement.addEventListener('volumechange', this.eventVolumeChange);
+      this.videoElement.addEventListener('timeupdate', this.eventUpdateVideoStatus);
+      this.videoElement.addEventListener('volumechange', this.eventUpdateVideoStatus);
+      this.videoElement.addEventListener('keydown', (e) => {
+        console.log(e);
+      });
     });
 
   }
@@ -51,11 +56,13 @@ export class MediaPlayerComponent implements OnInit {
     this.statPlay = false;
     this.ref.detectChanges();
   }
-  eventTimeUpdate = () => {
+
+  eventUpdateVideoStatus = () => {
     this.videoStat.next(this.videoElementToVideo(this.videoElement));
   }
-  eventVolumeChange = () => {
-    this.videoStat.next(this.videoElementToVideo(this.videoElement));
+
+  eventKeyUp(event) {
+    console.log(event)
   }
 
   videoToVideoElement(video: Video) {
@@ -101,20 +108,21 @@ export class MediaPlayerComponent implements OnInit {
       .join(":")
   }
 
-  close() {    
-    this.safePath = null;    
-    this.videoElement.removeEventListener('play', this.eventPlay);
-    this.videoElement.removeEventListener('pause', this.eventPause);
-    this.videoElement.removeEventListener('timeupdate', this.eventTimeUpdate);
-    this.videoElement.removeEventListener('volumechange', this.eventVolumeChange);
-    this.videoElement = null;
-    this.ref.detectChanges();
+  close() {
+    this.resetVideoElement();
     this.videoStat.next(null);
   }
+
+  resetVideoElement() {
+    this.safePath = null;
+    this.removeEvents();
+    this.videoElement = null;
+    this.ref.detectChanges();
+  }
+
   reduceVideo() {
     this.reduce = !this.reduce;
-    this.ref.detectChanges();
-    //this.videoStat.next(video);
+    this.videoStat.next(this.videoElementToVideo(this.videoElement));
   }
   videoElementToVideo(videoElement: HTMLVideoElement) {
     let video: Video = new Video();
@@ -122,7 +130,16 @@ export class MediaPlayerComponent implements OnInit {
     video.currentTime = videoElement.currentTime;
     video.volume = videoElement.volume;
     video.duration = videoElement.duration;
+    video.isReduce = this.reduce;
     this.ref.detectChanges();
     return video;
+  }
+
+  removeEvents() {
+    if (!this.videoElement) { return; }
+    this.videoElement.removeEventListener('play', this.eventPlay);
+    this.videoElement.removeEventListener('pause', this.eventPause);
+    this.videoElement.removeEventListener('timeupdate', this.eventUpdateVideoStatus);
+    this.videoElement.removeEventListener('volumechange', this.eventUpdateVideoStatus);
   }
 }

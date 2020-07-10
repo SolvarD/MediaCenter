@@ -4,6 +4,7 @@
   z-index: 100;
   position: relative;
   color: white;
+  visibility: hidden;
 }
 
 
@@ -28,6 +29,7 @@
 
 .screen-command {
   flex: 1;
+  justify-content: space-evenly;
 }
 
 .player {
@@ -44,6 +46,7 @@
 }
 
 .title-content {
+  visibility: hidden;
   display: flex;
   /*margin-top: 5px;*/
   /*margin-left: 5px;*/
@@ -72,13 +75,55 @@
 .video-container-reduce {
   width: 510px;
   height: 290px;
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
   background-color: black;
   overflow: hidden;
 }
+
 .close {
   margin-right: 5px;
   color: white;
+}
+
+
+.video-container:hover .command-container {
+  display: flex;
+  margin-top: -40px;
+  z-index: 100;
+  position: relative;
+  color: white;
+  visibility: visible;
+}
+
+.video-container:hover .title-content {
+  visibility: visible;
+  display: flex;
+  /*margin-top: 5px;*/
+  /*margin-left: 5px;*/
+  z-index: 100;
+  position: absolute;
+  color: white;
+  display: flex;
+  width: 100%;
+}
+.video-container-reduce:hover .command-container {
+  display: flex;
+  margin-top: -40px;
+  z-index: 100;
+  position: relative;
+  color: white;
+  visibility: visible;
+}
+.video-container-reduce:hover .title-content {
+  visibility: visible;
+  display: flex;
+  /*margin-top: 5px;*/
+  /*margin-left: 5px;*/
+  z-index: 100;
+  position: absolute;
+  color: white;
+  display: flex;
+  width: 100%;
 }

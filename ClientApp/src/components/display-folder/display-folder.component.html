@@ -1,16 +1,25 @@
 <div>
   <div>
-    <span class="pointer" *ngFor="let item of history;index as i" (click)="goTo({ path: item.path, index: i })"> {{item.title}} \</span>
+    <div>
+      <input type="text" placeholder="search" (keyup)="search.next($event)" />
+    </div>
+    <div>
+      <span class="link" *ngFor="let item of history;index as i" (click)="goTo({ path: item.path, index: i })"> {{item.title}} \</span>
+    </div>
   </div>
-  <div>
-    <input type="text" placeholder="search" (keyup)="search.next($event)" />
-  </div>
+  
+ 
   <div class="flex folder-container">
     <div *ngFor="let serie of filterSerie();index as i" class="pointer item-folder" [ngClass]="{'video-selected': currentTitle == serie.title}" (click)="(!serie.isDirectory && selectVideo(serie)) || (serie.isDirectory && goTo({ path: serie.path }))">
 
       <div style="text-align:center;">
         <i *ngIf="serie.isDirectory" class="fas fa-folder fa-6x"></i>
         <i *ngIf="!serie.isDirectory" class="fas fa-file-video fa-6x"></i>
+      </div>
+      <div *ngIf="!serie.isDirectory" >
+        <div class="progress">
+          <div class="saw" [style.width]="getPartSaw(serie)"></div>
+        </div>       
       </div>
       <div class="item-title">
         {{serie.title}}
