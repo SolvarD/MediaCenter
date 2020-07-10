@@ -102,10 +102,7 @@ export class DisplayFolderComponent implements OnInit {
   addToHistory(history: HistoryExplorer) {
 
     let addHistory: HistoryExplorer = history;
-    //if (!history.title) {
-    //  let pathArray = history.paths.join(';').split('\\');
-    //  addHistory.title = pathArray[pathArray.length - 1];
-    //}
+
     if (!history.index && history.index != 0) {
       addHistory.index = this.history.length;
     }

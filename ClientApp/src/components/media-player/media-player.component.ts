@@ -131,6 +131,7 @@ export class MediaPlayerComponent implements OnInit {
     video.volume = videoElement.volume;
     video.duration = videoElement.duration;
     video.isReduce = this.reduce;
+    video.isEnded = videoElement.ended;
     this.ref.detectChanges();
     return video;
   }

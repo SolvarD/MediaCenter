@@ -63,5 +63,9 @@ export class HomeComponent implements OnInit {
     this.isReduce = video.isReduce;
     this.ref.detectChanges();
     this.paramsService.updateConfig(this.config);
+
+    if (video.isEnded) {
+      console.log('end');
+    }
   }
 }

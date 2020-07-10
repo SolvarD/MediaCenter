@@ -1,6 +1,9 @@
 {
   "profilePath": "",
-  "videoLocation": [ "\\\\Ultimate-omega\\k", "\\\\Ultimate-omega\\i" ],
+  "videoLocation": [
+    "\\\\Ultimate-omega\\k",
+    "\\\\Ultimate-omega\\i"
+  ],
   "volume": 0.5,
   "Berserk_Ougon_Jidai_Hen_I_-_Haou_no_Tamago_Vostfr_[BD_720p]_-_www.animenomagic.com.mkv": {
     "currentTime": 3003.000904,
@@ -144,6 +147,26 @@
   "Wonder Woman.mkv": {
     "currentTime": 7584.512801,
     "duration": 8472.533,
+    "volume": 1
+  }, 
+  "02 Jiken.mp3": {
+    "currentTime": 169.351837,
+    "duration": 169.351837,
+    "volume": 1
+  },
+  "03 Light's Theme.mp3": {
+    "currentTime": 203.8181,
+    "duration": 203.8181,
+    "volume": 1
+  },
+  "04 L's Theme.mp3": {
+    "currentTime": 183.954286,
+    "duration": 183.954286,
+    "volume": 1
+  },
+  "05 Kinchou.mp3": {
+    "currentTime": 181.919593,
+    "duration": 232.7891,
     "volume": 1
   }
 }

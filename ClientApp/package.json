@@ -6,12 +6,13 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --prod",
     "build:ssr": "ng run MediaCenter:server:dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start:electron": "ng build --base-href ./ && electron .",
-    "package:win": "electron-packager dist MediaCenter --ignore=src --ignore=node_modules --ignore=e2e --ignore=.*\\.conf\\.js --ignore=\"(angular-cli|tsconfig)\\.json\" --ignore=webpack.*\\.js --out=packages --platform=win32 --arch=all --overwrite "
+    "package:win": "npm run build:prod && electron-packager dist MediaCenter --out=packages --platform=win32 --arch=all --overwrite "
   },
   "private": true,  
   "dependencies": {

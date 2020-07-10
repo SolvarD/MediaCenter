@@ -9,4 +9,5 @@ export class Video {
   children: Video[] = [];
   isSelected: boolean = false;
   isReduce: boolean = false;
+  isEnded: boolean = false;
 }
