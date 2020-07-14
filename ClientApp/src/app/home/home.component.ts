@@ -1,6 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ipcRenderer } from 'electron-renderer';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Video } from '../../models/video';
 import { SerieService } from '../../services/serie.service';
 import { ParamsService } from '../../services/params.service';
@@ -19,6 +17,7 @@ export class HomeComponent implements OnInit {
   currentVideo: Video;
   paths: string[] = [];
   isReduce: boolean = false;
+
   constructor(private ref: ChangeDetectorRef, private serieService: SerieService, private paramsService: ParamsService) { }
 
   async ngOnInit() {

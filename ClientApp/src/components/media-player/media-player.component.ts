@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, Input, Output } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, Output, HostListener } from '@angular/core';
 import { Video } from '../../models/video';
 import { Subject } from 'rxjs';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { KEY_CODE } from '../../enums/key-code';
 
 @Component({
   selector: 'app-media-player',
@@ -22,6 +23,30 @@ export class MediaPlayerComponent implements OnInit {
   title: string;
 
   reduce: boolean = false;
+
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (this.videoElement && !this.reduce) {
+      //space
+
+      switch (event.keyCode) {
+        case KEY_CODE.UP_ARROW:
+          break;
+        case KEY_CODE.DOWN_ARROW:
+          break;
+        case KEY_CODE.RIGHT_ARROW:
+          this.forward();
+          break;
+        case KEY_CODE.LEFT_ARROW:
+          this.backward();
+          break;
+        case KEY_CODE.SPACE:
+          this.playPause();
+          break;
+      }
+    }
+  }
 
   constructor(private ref: ChangeDetectorRef, private sanitizer: DomSanitizer) {
 
@@ -87,6 +112,18 @@ export class MediaPlayerComponent implements OnInit {
 
   play() {
     this.videoElement.play();
+  }
+
+  playPause() {
+    if (this.statPause) {
+      this.statPause = false;
+      this.statPlay = true;
+      this.play();
+    } else {
+      this.statPause = true;
+      this.statPlay = false;
+      this.pause();
+    }
   }
 
   fullScreen() {

@@ -4,7 +4,7 @@
     <div class="close pointer"><i (click)="close()" class="fas fa-times fa-2x"></i></div>
   </div>
 
-  <video class="player" autoplay [src]="safePath"></video>
+  <video (click)="playPause()" class="player" autoplay [src]="safePath"></video>
   <div *ngIf="videoElement" class="command-container vertical-align">
     <div class="timeline-command vertical-align">
 
@@ -57,7 +57,7 @@
     </div>
     <div class="screen-command flex">
       <div>
-        <i  (click)="fullScreen()" class="pointer fas fa-expand fa-2x"></i>
+        <i (click)="fullScreen()" class="pointer fas fa-expand fa-2x"></i>
         <!--<i *ngIf="" class="fas fa-compress fa-2x"></i>-->
       </div>
       <div>
