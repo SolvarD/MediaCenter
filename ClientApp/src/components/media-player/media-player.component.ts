@@ -32,8 +32,10 @@ export class MediaPlayerComponent implements OnInit {
 
       switch (event.keyCode) {
         case KEY_CODE.UP_ARROW:
+          this.upVolume();
           break;
         case KEY_CODE.DOWN_ARROW:
+          this.downVolume();
           break;
         case KEY_CODE.RIGHT_ARROW:
           this.forward();
@@ -64,8 +66,8 @@ export class MediaPlayerComponent implements OnInit {
       this.videoElement.addEventListener('pause', this.eventPause);
       this.videoElement.addEventListener('timeupdate', this.eventUpdateVideoStatus);
       this.videoElement.addEventListener('volumechange', this.eventUpdateVideoStatus);
-      this.videoElement.addEventListener('keydown', (e) => {
-        console.log(e);
+      this.videoElement.addEventListener('ended', (e) => {
+        this.close();
       });
     });
 
@@ -179,5 +181,17 @@ export class MediaPlayerComponent implements OnInit {
     this.videoElement.removeEventListener('pause', this.eventPause);
     this.videoElement.removeEventListener('timeupdate', this.eventUpdateVideoStatus);
     this.videoElement.removeEventListener('volumechange', this.eventUpdateVideoStatus);
+  }
+
+  upVolume() {
+    if (this.videoElement.volume < 1) {
+      this.videoElement.volume += 0.05;
+    }
+  }
+
+  downVolume() {
+    if (this.videoElement.volume > 0) {
+      this.videoElement.volume -= 0.05;
+    }
   }
 }
