@@ -56,3 +56,9 @@ code {
     cursor: pointer;
     color: blue;
 }
+.column {
+  flex-direction: column
+}
+html, body {
+    height:100%;
+}

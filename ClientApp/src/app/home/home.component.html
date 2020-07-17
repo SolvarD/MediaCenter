@@ -1,6 +1,11 @@
-<div class="flex">
-  <app-display-folder [hidden]="currentVideo && !isReduce" [paths]="paths" (selectedVideo)="selectVideo($event)"></app-display-folder>
-  <app-media-player [hidden]="!currentVideo" [video]="selectedVideo" (videoStat)="videoUpdate($event)"></app-media-player>
+<div class="flex column">
+  <div>
+    {{getTime(totalTimeSpend)}} total visionné
+  </div>
+  <div>
+    <app-display-folder [hidden]="currentVideo && !isReduce" [paths]="paths" (selectedVideo)="selectVideo($event)"></app-display-folder>
+    <app-media-player [hidden]="!currentVideo" [video]="selectedVideo" (videoStat)="videoUpdate($event)"></app-media-player>
+  </div>
 </div>
 
 

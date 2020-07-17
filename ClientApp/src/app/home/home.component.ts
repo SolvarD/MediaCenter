@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   currentVideo: Video;
   paths: string[] = [];
   isReduce: boolean = false;
-
+  totalTimeSpend: number = 0;
   constructor(private ref: ChangeDetectorRef, private serieService: SerieService, private paramsService: ParamsService) { }
 
   async ngOnInit() {
@@ -29,6 +29,9 @@ export class HomeComponent implements OnInit {
       this.ref.detectChanges();
     })
     console.log(this.config);
+
+    this.totalTimeSpend = Object.values(this.config).map(h => h.currentTime).filter(p => p).reduce((c, d) => c + d);
+
     this.ref.detectChanges();
   }
 
@@ -36,7 +39,7 @@ export class HomeComponent implements OnInit {
     let statusVideo = this.config[video.title];
     if (statusVideo) {
       video.volume = this.config.volume;
-      video.currentTime = this.config[video.title].currentTime;
+      video.currentTime = statusVideo.isEnded ? 0 : statusVideo.currentTime;
     } else {
       video.volume = 0.5;
       video.currentTime = 0;
@@ -58,13 +61,26 @@ export class HomeComponent implements OnInit {
     }
     this.config[video.title].currentTime = video.currentTime;
     this.config[video.title].duration = video.duration;
+    this.config[video.title].isEnded = video.isEnded;
     this.config.volume = video.volume;
     this.isReduce = video.isReduce;
     this.ref.detectChanges();
     this.paramsService.updateConfig(this.config);
-
+    this.totalTimeSpend = Object.values(this.config).map(h => h.currentTime).filter(p => p).reduce((c, d) => c + d);
     if (video.isEnded) {
       console.log('end');
     }
+  }
+
+  getTime(secs) {
+    var sec_num = parseInt(secs, 10)
+    var hours = Math.floor(sec_num / 3600)
+    var minutes = Math.floor(sec_num / 60) % 60
+    var seconds = sec_num % 60
+
+    return [hours, minutes, seconds]
+      .map(v => v < 10 ? "0" + v : v)
+      .filter((v, i) => v !== "00" || i > 0)
+      .join(":")
   }
 }

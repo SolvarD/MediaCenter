@@ -23,6 +23,7 @@ export class MediaPlayerComponent implements OnInit {
   title: string;
 
   reduce: boolean = false;
+  seeking: boolean = false;
 
 
   @HostListener('window:keydown', ['$event'])
@@ -66,11 +67,11 @@ export class MediaPlayerComponent implements OnInit {
       this.videoElement.addEventListener('pause', this.eventPause);
       this.videoElement.addEventListener('timeupdate', this.eventUpdateVideoStatus);
       this.videoElement.addEventListener('volumechange', this.eventUpdateVideoStatus);
-      this.videoElement.addEventListener('ended', (e) => {
-        this.close();
-      });
-    });
 
+      this.videoElement.addEventListener('seeking', this.showSpinner);
+      this.videoElement.addEventListener('seeked', this.hideSpinner);
+      this.videoElement.addEventListener('ended', this.close);
+    });
   }
 
   eventPlay = () => {
@@ -78,6 +79,7 @@ export class MediaPlayerComponent implements OnInit {
     this.statPlay = true;
     this.ref.detectChanges();
   }
+
   eventPause = () => {
     this.statPause = true;
     this.statPlay = false;
@@ -181,6 +183,10 @@ export class MediaPlayerComponent implements OnInit {
     this.videoElement.removeEventListener('pause', this.eventPause);
     this.videoElement.removeEventListener('timeupdate', this.eventUpdateVideoStatus);
     this.videoElement.removeEventListener('volumechange', this.eventUpdateVideoStatus);
+    this.videoElement.removeEventListener('seeking', this.showSpinner);
+    this.videoElement.removeEventListener('seeked', this.hideSpinner);
+
+    this.videoElement.removeEventListener('ended', this.close)
   }
 
   upVolume() {
@@ -193,5 +199,12 @@ export class MediaPlayerComponent implements OnInit {
     if (this.videoElement.volume > 0) {
       this.videoElement.volume -= 0.05;
     }
+  }
+
+  showSpinner = () => {
+    this.seeking = true;
+  }
+  hideSpinner = () => {
+    this.seeking = false;
   }
 }

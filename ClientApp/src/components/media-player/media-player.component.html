@@ -1,4 +1,10 @@
 <div class="video-container" [ngClass]="{'video-container-reduce': reduce, 'video-container': !reduce}">
+  <div *ngIf="seeking" class="spinner-container">
+    <div class="personnal-spinner">
+      <i class="fas fa-spinner fa-6x"></i>
+    </div>
+  </div>
+
   <div class="title-content vertical-align">
     <div class="item-title flex-1">{{title}}</div>
     <div class="close pointer"><i (click)="close()" class="fas fa-times fa-2x"></i></div>
