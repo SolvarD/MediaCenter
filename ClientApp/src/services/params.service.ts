@@ -22,11 +22,11 @@ export class ParamsService {
       });
     });
 
-    return promise;    
+    return promise;
   }
 
   async updateConfig(config: any) {
-    ipcRenderer.send('update-config',config);
+    ipcRenderer.send('update-config', config);
     ParamsService.config.next(config);
     //let promise = new Promise<MediaCenterConfig>((resolve) => {
     //  ipcRenderer.once('update-config', (event, config) => {
@@ -36,5 +36,17 @@ export class ParamsService {
     //});
 
     //return promise;
+  }
+
+  async checkPath(path: string) {
+    ipcRenderer.send('check-path', path);
+
+    let promise = new Promise<boolean>((resolve) => {
+      ipcRenderer.once('check-path', (event, pathExist) => {
+        resolve(pathExist);
+      });
+    });
+
+    return promise;
   }
 }

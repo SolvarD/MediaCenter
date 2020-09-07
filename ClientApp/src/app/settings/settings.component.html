@@ -1,0 +1,20 @@
+<div *ngIf="config" class="flex">
+  <div>
+
+      <i class="fas fa-save fa-2x pointer" (click)="save()"></i>
+
+  </div>
+  <div>
+
+    <i class="fas fa-plus-circle fa-2x pointer" (click)="addRoute()"></i>
+
+  </div>
+  <form [formGroup]="routeForm" *ngFor="let routeForm of routeForms;index as i">
+    <div>
+      <input type="text" placeholder="Route"
+             class="form-control" formControlName="route" />
+    </div>
+
+
+  </form>
+</div>

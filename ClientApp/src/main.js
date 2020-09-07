@@ -65,6 +65,8 @@ function getNode(level = 0, path) {
     listSerie.push({
       title: file,
       path: pathFile,
+      hasCover: fs.existsSync(pathFile+'\\cover.png'),
+      route: path,
       isDirectory: isDirectory,
       level: isDirectory ? (level + 1) : level,
       children: []
@@ -122,4 +124,14 @@ ipcMain.on('update-config', function (event, config) {
     conf = Object.assign(JSON.parse(data), config)
     fs.writeFile('./src/config/config-media-center.json', JSON.stringify(conf), () => { });
   })
+})
+
+ipcMain.on('check-path', function (event, path) {
+  console.log(path)
+  if (fs.existsSync(path)) {
+    mainWindow.webContents.send('check-path', true);
+  }
+  else {
+    mainWindow.webContents.send('check-path', false);
+  }
 })

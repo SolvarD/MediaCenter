@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Video } from '../../models/video';
 import { SerieService } from '../../services/serie.service';
 import { ParamsService } from '../../services/params.service';
@@ -10,7 +10,8 @@ import { VideoStatus } from '../../models/video-status';
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  
   series: Array<Video> = [];
   config: MediaCenterConfig;
   selectedVideo: Subject<Video> = new Subject<Video>();
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit {
 
   selectVideo(video: Video) {
     let statusVideo = this.config[video.title];
+    console.log(video);
     if (statusVideo) {
       video.volume = this.config.volume;
       video.currentTime = statusVideo.isEnded ? 0 : statusVideo.currentTime;
@@ -82,5 +84,9 @@ export class HomeComponent implements OnInit {
       .map(v => v < 10 ? "0" + v : v)
       .filter((v, i) => v !== "00" || i > 0)
       .join(":")
+  }
+
+  ngOnDestroy(): void {
+    //this.ref.detectChanges();
   }
 }

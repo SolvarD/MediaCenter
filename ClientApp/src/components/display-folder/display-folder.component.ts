@@ -119,4 +119,8 @@ export class DisplayFolderComponent implements OnInit {
     if (!videoParams || !videoParams.currentTime) { return '0%'; }
     return (Math.floor((videoParams.currentTime / videoParams.duration) * 100)) + '%'
   }
+  noCover(serie: Video) {
+    serie.hasCover = false;
+    this.ref.detectChanges();
+  }
 }

@@ -12,9 +12,17 @@
   <div class="flex folder-container">
     <div *ngFor="let serie of filterSerie();index as i" class="pointer item-folder" [ngClass]="{'video-selected': currentTitle == serie.title}" (click)="(!serie.isDirectory && selectVideo(serie)) || (serie.isDirectory && goTo({ paths: [serie.path], title: serie.title }))">
 
-      <div style="text-align:center;">
-        <i *ngIf="serie.isDirectory" class="fas fa-folder fa-6x"></i>
-        <i *ngIf="!serie.isDirectory" class="fas fa-file-video fa-6x"></i>
+      <div class="ico-container">       
+
+        <div *ngIf="serie.hasCover" class="cover-container">
+          <img *ngIf="serie.hasCover" class="cover" [src]="serie.path + '\\cover.png'" />
+        </div>
+
+        <div>
+          <i *ngIf="serie.isDirectory && !serie.hasCover" [hidden]="serie.hasCover != false" class="fas fa-folder fa-6x"></i>
+          <i *ngIf="!serie.isDirectory" class="fas fa-file-video fa-6x"></i>
+        </div>       
+
       </div>
       <div *ngIf="!serie.isDirectory" >
         <div class="progress">
